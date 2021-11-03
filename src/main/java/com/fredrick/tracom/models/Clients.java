@@ -1,6 +1,7 @@
 package com.fredrick.tracom.models;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,35 +9,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
-public class Devices {
+public class Clients {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
-	String modelType;
-	
 	
 	@Column(unique=true)
-	String serialNumber;
+	String clientCode;
+	
+	String clientName;
 	
 	String modifiedBy;
 	
 	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ")
 	Timestamp dateModified;
 
-	public Devices() {
+	public Clients() {
 		super();
-	
 		
 		// TODO Auto-generated constructor stub
 	}
 
-	public Devices(long id, String modelType, String serialNumber, String modifiedBy, Timestamp dateModified) {
+	public Clients(long id, String clientCode, String clientName, String modifiedBy, Timestamp dateModified) {
 		super();
 		this.id = id;
-		this.modelType = modelType;
-		this.serialNumber = serialNumber;
+		this.clientCode = clientCode;
+		this.clientName = clientName;
 		this.modifiedBy = modifiedBy;
 		this.dateModified = dateModified;
 	}
@@ -49,20 +51,20 @@ public class Devices {
 		this.id = id;
 	}
 
-	public String getModelType() {
-		return modelType;
+	public String getClientCode() {
+		return clientCode;
 	}
 
-	public void setModelType(String modelType) {
-		this.modelType = modelType;
+	public void setClientCode(String clientCode) {
+		this.clientCode = clientCode;
 	}
 
-	public String getSerialNumber() {
-		return serialNumber;
+	public String getClientName() {
+		return clientName;
 	}
 
-	public void setSerialNumber(String serialNumber) {
-		this.serialNumber = serialNumber;
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 
 	public String getModifiedBy() {
@@ -78,8 +80,9 @@ public class Devices {
 	}
 
 	public void setDateModified(Timestamp dateModified) {
-		this.dateModified = dateModified;
+		this.dateModified = Timestamp.valueOf(LocalDateTime.now());
 	}
+	
 
 	
 
