@@ -29,20 +29,20 @@ public class ClientsService {
 
 		// validating fields
 		if (client == null) {
-			return new ResponseEntity<String>("Add a request body", HttpStatus.OK);
+			return new ResponseEntity<String>("Add a request body", HttpStatus.BAD_REQUEST);
 
 		}
 		if (client.getClientCode() == null || client.getClientCode().isEmpty()) {
-			return new ResponseEntity<String>("Client Code is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Client Code is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 
 		if (client.getClientName() == null || client.getClientName().isEmpty()) {
-			return new ResponseEntity<String>("Client Name is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Client Name is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (client.getModifiedBy() == null || client.getModifiedBy().isEmpty()) {
-			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (!allClients.isEmpty()) {
@@ -62,24 +62,24 @@ public class ClientsService {
 	public ResponseEntity<String> updateClint(final Clients client) {
 
 		if (client == null) {
-			return new ResponseEntity<String>("Add a request body", HttpStatus.OK);
+			return new ResponseEntity<String>("Add a request body", HttpStatus.BAD_REQUEST);
 
 		}
 		if (client.getClientCode() == null || client.getClientCode().isEmpty()) {
-			return new ResponseEntity<String>("Client Code is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Client Code is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 
 		if (client.getClientName() == null || client.getClientName().isEmpty()) {
-			return new ResponseEntity<String>("Client Name is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Client Name is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (client.getModifiedBy() == null || client.getModifiedBy().isEmpty()) {
-			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (!clientsRepository.existsById(client.getId())) {
-			return new ResponseEntity<String>("Client with id : " + client.getId() + " does not exist", HttpStatus.OK);
+			return new ResponseEntity<String>("Client with id : " + client.getId() + " does not exist", HttpStatus.NOT_FOUND);
 		}
 
 		Clients clientsToUpdate = clientsRepository.getById(client.getId());
@@ -90,7 +90,7 @@ public class ClientsService {
 		if (res != null) {
 			return new ResponseEntity<String>("Updated Successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("failed", HttpStatus.OK);
+		return new ResponseEntity<String>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	public ResponseEntity<String> deleteClient(final Long id) {
@@ -99,7 +99,7 @@ public class ClientsService {
 			clientsRepository.deleteById(id);
 			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("failed to delete Client with id " + id + "", HttpStatus.OK);
+		return new ResponseEntity<String>("failed to delete Client with id " + id + "", HttpStatus.NOT_FOUND);
 
 	}
 

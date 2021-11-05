@@ -29,24 +29,24 @@ public class BranchesServices {
 
 		// validating fields
 		if (branches == null) {
-			return new ResponseEntity<String>("Add a request body", HttpStatus.OK);
+			return new ResponseEntity<String>("Add a request body", HttpStatus.BAD_REQUEST);
 
 		}
 		if (branches.getBranchCode() == null || branches.getBranchCode().isEmpty()) {
-			return new ResponseEntity<String>("Branch Code is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Branch Code is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 
 		if (branches.getBranchName() == null || branches.getBranchName().isEmpty()) {
-			return new ResponseEntity<String>("Branch Name is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Branch Name is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (branches.getModifiedBy() == null || branches.getModifiedBy().isEmpty()) {
-			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (!allBrances.isEmpty()) {
-			return new ResponseEntity<String>("Branch Code already exist", HttpStatus.OK);
+			return new ResponseEntity<String>("Branch Code already exist", HttpStatus.BAD_REQUEST);
 		}
 
 		// saving branches
@@ -63,24 +63,24 @@ public class BranchesServices {
 	public ResponseEntity<String> updateBranch(final Branches branches) {
 
 		if (branches == null) {
-			return new ResponseEntity<String>("Add a request body", HttpStatus.OK);
+			return new ResponseEntity<String>("Add a request body", HttpStatus.BAD_REQUEST);
 
 		}
 		if (branches.getBranchCode() == null || branches.getBranchCode().isEmpty()) {
-			return new ResponseEntity<String>("Branch Code is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Branch Code is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 
 		if (branches.getBranchName() == null || branches.getBranchName().isEmpty()) {
-			return new ResponseEntity<String>("Branch Name is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Branch Name is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (branches.getModifiedBy() == null || branches.getModifiedBy().isEmpty()) {
-			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (!branchesRepository.existsById(branches.getId())) {
-			return new ResponseEntity<String>("Branch with id " + branches.getId() + " does not exist", HttpStatus.OK);
+			return new ResponseEntity<String>("Branch with id " + branches.getId() + " does not exist", HttpStatus.NOT_FOUND);
 		}
 
 		Branches branchToUpdate = branchesRepository.getById(branches.getId());
@@ -91,7 +91,7 @@ public class BranchesServices {
 		if (res != null) {
 			return new ResponseEntity<String>("Updated Successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("failed", HttpStatus.OK);
+		return new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
 	}
 
 	public ResponseEntity<String> deleteBranch(final Long id) {
@@ -100,7 +100,7 @@ public class BranchesServices {
 			branchesRepository.deleteById(id);
 			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("failed to delete Branch with id " + id + "", HttpStatus.OK);
+		return new ResponseEntity<String>("failed to delete Branch with id " + id + "", HttpStatus.NOT_FOUND);
 
 	}
 

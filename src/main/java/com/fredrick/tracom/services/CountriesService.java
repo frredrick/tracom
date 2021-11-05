@@ -28,24 +28,24 @@ public class CountriesService {
 
 		// validating fields
 		if (country == null) {
-			return new ResponseEntity<String>("Add a request body", HttpStatus.OK);
+			return new ResponseEntity<String>("Add a request body", HttpStatus.BAD_REQUEST);
 
 		}
 		if (country.getCountryCode() == null || country.getCountryCode().isEmpty()) {
-			return new ResponseEntity<String>("Country Code is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Country Code is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 
 		if (country.getCountryName() == null || country.getCountryName().isEmpty()) {
-			return new ResponseEntity<String>("Country Name is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Country Name is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (country.getModifiedBy() == null || country.getModifiedBy().isEmpty()) {
-			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (!allCountries.isEmpty()) {
-			return new ResponseEntity<String>("Country Code already exist", HttpStatus.OK);
+			return new ResponseEntity<String>("Country Code already exist", HttpStatus.BAD_REQUEST);
 		}
 
 		// saving Countries
@@ -62,25 +62,25 @@ public class CountriesService {
 
 		// validating fields
 		if (country == null) {
-			return new ResponseEntity<String>("Add a request body", HttpStatus.OK);
+			return new ResponseEntity<String>("Add a request body", HttpStatus.BAD_REQUEST);
 
 		}
 		if (country.getCountryCode() == null || country.getCountryCode().isEmpty()) {
-			return new ResponseEntity<String>("Country Code is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Country Code is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 
 		if (country.getCountryName() == null || country.getCountryName().isEmpty()) {
-			return new ResponseEntity<String>("Country Name is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Country Name is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (country.getModifiedBy() == null || country.getModifiedBy().isEmpty()) {
-			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (!countriesRepository.existsById(country.getId())) {
 			return new ResponseEntity<String>("Country with id : " + country.getId() + " does not exist",
-					HttpStatus.OK);
+					HttpStatus.NOT_FOUND);
 
 		}
 		
@@ -93,7 +93,7 @@ public class CountriesService {
 		if (res != null) {
 			return new ResponseEntity<String>("Updated Successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("failed", HttpStatus.OK);
+		return new ResponseEntity<String>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	public ResponseEntity<String> deleteCountry(final Long id) {
@@ -102,7 +102,7 @@ public class CountriesService {
 			countriesRepository.deleteById(id);
 			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("failed to delete country with id " + id + "", HttpStatus.OK);
+		return new ResponseEntity<String>("failed to delete country with id " + id + "", HttpStatus.NOT_FOUND);
 
 	}
 

@@ -28,24 +28,24 @@ public class DevicesService {
 
 		// validating fields
 		if (device == null) {
-			return new ResponseEntity<String>("Add a request body", HttpStatus.OK);
+			return new ResponseEntity<String>("Add a request body", HttpStatus.BAD_REQUEST);
 
 		}
 		
 		if (device.getSerialNumber() == null || device.getSerialNumber().isEmpty()) {
-			return new ResponseEntity<String>(" Device Serial Number  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>(" Device Serial Number  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (device.getModelType() == null || device.getModelType().isEmpty()) {
-			return new ResponseEntity<String>("Device Model Type   is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Device Model Type   is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (device.getModifiedBy() == null || device.getModifiedBy().isEmpty()) {
-			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (!allDevices.isEmpty()) {
-			return new ResponseEntity<String>("device already exist", HttpStatus.OK);
+			return new ResponseEntity<String>("device already exist", HttpStatus.BAD_REQUEST);
 		}
 
 		// saving Device
@@ -61,24 +61,24 @@ public class DevicesService {
 	public ResponseEntity<String> updateDevice(final Devices device) {
 		// validating fields
 		if (device == null) {
-			return new ResponseEntity<String>("Add a request body", HttpStatus.OK);
+			return new ResponseEntity<String>("Add a request body", HttpStatus.BAD_REQUEST);
 
 		}
 	
 		if (device.getSerialNumber() == null || device.getSerialNumber().isEmpty()) {
-			return new ResponseEntity<String>(" Device Serial Number  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>(" Device Serial Number  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (device.getModelType() == null || device.getModelType().isEmpty()) {
-			return new ResponseEntity<String>("Device Model Type   is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Device Model Type   is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (device.getModifiedBy() == null || device.getModifiedBy().isEmpty()) {
-			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.OK);
+			return new ResponseEntity<String>("Modified by  is Empty!", HttpStatus.BAD_REQUEST);
 
 		}
 		if (!devicesRepository.existsById(device.getId())) {
-			return new ResponseEntity<String>("Device with id :" + device.getId() + " does not exist", HttpStatus.OK);
+			return new ResponseEntity<String>("Device with id :" + device.getId() + " does not exist", HttpStatus.NOT_FOUND);
 		}
 		
 		
@@ -92,7 +92,7 @@ public class DevicesService {
 		if (res != null) {
 			return new ResponseEntity<String>("Updated Successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("failed", HttpStatus.OK);
+		return new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
 	}
 
 	public ResponseEntity<String> deleteDevice(final Long id) {
@@ -101,7 +101,7 @@ public class DevicesService {
 			devicesRepository.deleteById(id);
 			return new ResponseEntity<String>("Deleted successfully", HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("failed to delete device with id: " + id + " ", HttpStatus.OK);
+		return new ResponseEntity<String>("failed to delete device with id: " + id + " ", HttpStatus.BAD_REQUEST);
 
 	}
 
